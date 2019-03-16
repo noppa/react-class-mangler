@@ -22,6 +22,7 @@ function VisitMehtod(path: NodePath<t.ClassMethod>, state: VisitorState) {
 	if (key.type !== 'Identifier' || publicComponentApi.has(key.name)) {
 		return;
 	}
+
 	const id = path.scope.generateUidIdentifier('a');
 	state.renames.set(key.name, {
 		newName: id.name,
@@ -37,8 +38,29 @@ function VisitClass(path: NodePath<ClassExprDecl>) {
 	path.traverse(classVisitor, state);
 }
 
+function VisitMemberExpr(
+	path: NodePath<t.MemberExpression>,
+	state: VisitorState
+) {
+	const { node } = path;
+	const property: t.Identifier = node.property;
+	// TODO: Handle string literal expressions.
+	// TODO: Should we bail here if there's an ambiguous this[computed] call?
+	if (node.object.type !== 'ThisExpression' || property.type !== 'Identifier') {
+		return;
+	}
+	const rename = state.renames.get(property.name);
+	console.log('member expr', property.name, rename);
+	// TODO: Allow properties to be declared in methods.
+	if (!rename) {
+		return;
+	}
+	property.name = rename.newName;
+}
+
 const classVisitor: Babel.Visitor<VisitorState> = {
 	ClassMethod: VisitMehtod,
+	MemberExpression: VisitMemberExpr,
 };
 
 export default function(): Babel.PluginObj<VisitorState> {
