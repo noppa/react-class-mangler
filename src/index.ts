@@ -31,11 +31,24 @@ function VisitMehtod(path: NodePath<t.ClassMethod>, state: VisitorState) {
 }
 
 function VisitClass(path: NodePath<ClassExprDecl>) {
+	if (!isReactClass(path.node)) {
+		return;
+	}
+
 	const state: VisitorState = {
 		className: getWithDefault('unknown', path.node.id, 'name'),
 		renames: new Map(),
 	};
 	path.traverse(classVisitor, state);
+}
+
+function isReactClass({ superClass }: ClassExprDecl) {
+	// TODO: More robust check for "extends React.Component"
+	return (
+		!!superClass &&
+		superClass.type === 'Identifier' &&
+		superClass.name === 'Component'
+	);
 }
 
 function VisitMemberExpr(

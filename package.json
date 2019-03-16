@@ -6,7 +6,7 @@
 	"author": "noppa <the.nobba@gmail.com>",
 	"license": "MIT",
 	"scripts": {
-		"test": "babel test/demoproject/src",
+		"test": "babel test/demoproject/src/basic-component.js",
 		"build": "tsc"
 	},
 	"devDependencies": {

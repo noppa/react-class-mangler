@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 
 class BasicComponent extends Component {
-	greetings() {
-		return 'Hello';
+	greetings(i) {
+		return 'Hello' + (--i ? this.greetings(i) : '');
 	}
 	render() {
-		return <div>{this.greetings()}</div>;
+		return <div>{this.greetings(5)}</div>;
 	}
 }
 
