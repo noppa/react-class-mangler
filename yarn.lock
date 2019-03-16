@@ -1200,6 +1200,11 @@ gauge@~2.7.3:
     strip-ansi "^3.0.1"
     wide-align "^1.1.0"
 
+get-optional@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/get-optional/-/get-optional-2.0.3.tgz#9fe5d07620b634aaf97b100516673892c19b9c4e"
+  integrity sha512-s1X41fq+8DjAMgFevgHKWc05eOkGFCCGFSnSL6u2+SxFgMBo6Kc/24R5XFeGkT5hMWZybs1L+zXjkVNKLjHaeg==
+
 get-value@^2.0.3, get-value@^2.0.6:
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/get-value/-/get-value-2.0.6.tgz#dc15ca1c672387ca76bd37ac0a395ba2042a2c28"

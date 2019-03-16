@@ -9,4 +9,8 @@ class BasicComponent extends Component {
 	}
 }
 
+export const FooClass = class {
+	foo() {}
+};
+
 export default BasicComponent;
