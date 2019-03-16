@@ -45,7 +45,8 @@ function VisitMemberExpr(
 	const { node } = path;
 	const property: t.Identifier = node.property;
 	// TODO: Handle string literal expressions.
-	// TODO: Should we bail here if there's an ambiguous this[computed] call?
+	// TODO: Handle expressions where LHS is a variable that points to `this`.
+	// TODO: Bail here if there's an ambiguous this[computed] call?
 	if (node.object.type !== 'ThisExpression' || property.type !== 'Identifier') {
 		return;
 	}
