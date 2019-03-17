@@ -16,8 +16,9 @@ type VisitorState = {
 };
 
 type ClassExprDecl = t.ClassDeclaration | t.ClassExpression;
+type Member = t.ClassMethod | t.ClassProperty;
 
-function VisitMehtod(path: NodePath<t.ClassMethod>, state: VisitorState) {
+function VisitMember(path: NodePath<Member>, state: VisitorState) {
 	const { key } = path.node;
 	if (key.type !== 'Identifier' || publicComponentApi.has(key.name)) {
 		return;
@@ -73,7 +74,8 @@ function VisitMemberExpr(
 }
 
 const classVisitor: Babel.Visitor<VisitorState> = {
-	ClassMethod: VisitMehtod,
+	ClassMethod: VisitMember,
+	ClassProperty: VisitMember,
 	MemberExpression: VisitMemberExpr,
 };
 
